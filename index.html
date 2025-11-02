@@ -2,43 +2,19 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="<!DOCTYPE html>
-<html lang="id">
-  <head>
-    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Laporan Harian PPPK - BPS Sumbar</title>
+
+    <!-- Bulma & Font Awesome -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!-- Ikon dan manifest -->
     <link rel="icon" type="image/png" href="bpssumbar.png" />
     <link rel="apple-touch-icon" href="bpssumbar.png" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#0047AB" />
-  </head>
-  <body>
-    <section class="hero is-primary is-bold">
-      <div class="hero-body has-text-centered">
-        <h1 class="title is-3">LAPORAN HARIAN PPPK</h1>
-        <h2 class="subtitle is-5">BPS Provinsi Sumatera Barat</h2>
-      </div>
-    </section>
-    <div class="container mt-5">
-      <p>Versi siap upload ke GitHub Pages</p>
-    </div>
-  </body>
-</html>
 
-width=device-width, initial-scale=1" />
-    <title>Laporan Harian PPPK - BPS Sumbar</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="icon" href="https://bps.go.id/favicon.ico" type="image/x-icon" />
     <style>
       body {
         background: linear-gradient(135deg, #f4f7fa, #e8eef3);
@@ -95,93 +71,109 @@ width=device-width, initial-scale=1" />
       #message {
         transition: all 0.3s ease;
       }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .logo img {
+        width: 60px;
+        height: 60px;
+      }
     </style>
   </head>
   <body>
     <section class="hero is-primary is-bold">
       <div class="hero-body has-text-centered">
-        <h1 class="title is-3">LAPORAN HARIAN PPPK</h1>
-        <h2 class="subtitle is-5">BPS Provinsi Sumatera Barat</h2>
-      </div>
-    </section>
-
-    <form id="form" class="container m-4 pl-4">
-      <div class="field">
-        <label class="label">Tanggal</label>
-        <div class="control">
-          <input class="input" type="date" placeholder="Tanggal" name="Tanggal" />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Jam</label>
-        <div class="control">
-          <input class="input" type="time" placeholder="Jam" name="Jam" />
-        </div>
-      </div>
-      <div class="field">
-        <label class="label">Tim Kerja</label>
-        <div class="control">
-          <label class="radio">
-            <input type="radio" name="Tim Kerja" value="Rumah Tangga" /> Rumah Tangga
-          </label>
-          <label class="radio">
-            <input type="radio" name="Tim Kerja" value="IT Suporting" /> IT Suporting
-          </label>
-		  <label class="radio">
-            <input type="radio" name="Tim Kerja" value="Humas dan Protokol" /> Humas dan Protokol
-		  </label>
-		  <label class="radio">
-            <input type="radio" name="Tim Kerja" value="PPID" /> PPID
-          </label>
-		</label>
-        </div>
-      <div class="field">
-        <label class="label">Laporan Kegiatan</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Tuliskan kegiatan harian" name="Laporan Kegiatan"></textarea>
-        </div>
-      </div>
-      <!-- Tombol baru: buka Google Sheet di tab baru -->
-        <div class="control">
-          <a
-            class="button is-link"
-            id="open-sheet-button"
-            href="https://docs.google.com/spreadsheets/d/1aZM8brs-r9ZUYtLtEnj5SDedfMqtcvNhxBGRTmnkbzc/edit?usp=sharing"
-            target="_blank"
-            rel="noopener noreferrer"
-            >LAPORAN BULANAN</a
-          >
-	  </div>
-
-      <div class="field">
-        <label class="label">Upload File (Optional)</label>
-        <div class="control">
-          <div class="file has-name is-fullwidth">
-            <label class="file-label">
-              <input class="file-input" type="file" name="theFile" id="fileInput" accept="*/*" />
-              <span class="file-cta">
-                <span class="file-icon"><i class="fas fa-upload"></i></span>
-                <span class="file-label">Pilih File file…</span>
-              </span>
-              <span class="file-name" id="fileNameDisplay">No file selected</span>
-            </label>
+        <div class="logo">
+          <img src="bpssumbar.png" alt="Logo BPS" />
+          <div>
+            <h1 class="title is-3">LAPORAN HARIAN PPPK</h1>
+            <h2 class="subtitle is-5">BPS Provinsi Sumatera Barat</h2>
           </div>
         </div>
       </div>
+    </section>
 
-      <input type="hidden" name="filename" id="actualFilename" />
-
-      <div class="field is-grouped is-grouped-centered is-flex-direction-column-mobile">
-        <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Kirim</button>
+    <div class="container mt-5">
+      <form id="form">
+        <div class="field">
+          <label class="label">Tanggal</label>
+          <div class="control">
+            <input class="input" type="date" name="Tanggal" required />
+          </div>
         </div>
-        <div class="control">
-          <button class="button is-danger" type="button" onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';">Cancel</button>
-        </div>
-      </div>
-    </form>
 
-    <div id="message" style="display: none; margin: 20px; padding: 10px; border-radius: 4px; font-weight: bold;"></div>
+        <div class="field">
+          <label class="label">Jam</label>
+          <div class="control">
+            <input class="input" type="time" name="Jam" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Tim Kerja</label>
+          <div class="control">
+            <label class="radio mr-3"><input type="radio" name="Tim Kerja" value="Rumah Tangga" /> Rumah Tangga</label>
+            <label class="radio mr-3"><input type="radio" name="Tim Kerja" value="IT Suporting" /> IT Suporting</label>
+            <label class="radio mr-3"><input type="radio" name="Tim Kerja" value="Humas dan Protokol" /> Humas dan Protokol</label>
+            <label class="radio"><input type="radio" name="Tim Kerja" value="PPID" /> PPID</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Laporan Kegiatan</label>
+          <div class="control">
+            <textarea class="textarea" placeholder="Tuliskan kegiatan harian..." name="Laporan Kegiatan" required></textarea>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Upload Dokumen (Opsional)</label>
+          <div class="file has-name is-fullwidth">
+            <label class="file-label">
+              <input class="file-input" type="file" id="fileInput" name="theFile" accept="*/*" />
+              <span class="file-cta">
+                <span class="file-icon"><i class="fas fa-upload"></i></span>
+                <span class="file-label">Pilih File…</span>
+              </span>
+              <span class="file-name" id="fileNameDisplay">Belum ada file</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="buttons is-centered mt-4">
+          <button class="button is-primary" id="submit-button" type="submit">
+            <span class="icon"><i class="fas fa-paper-plane"></i></span>
+            <span>Kirim</span>
+          </button>
+          <button class="button is-danger" type="button" onclick="resetForm()">
+            <span class="icon"><i class="fas fa-rotate-left"></i></span>
+            <span>Batal</span>
+          </button>
+        </div>
+
+        <div class="has-text-centered mt-3">
+          <a
+            class="button is-link"
+            href="https://docs.google.com/spreadsheets/d/1aZM8brs-r9ZUYtLtEnj5SDedfMqtcvNhxBGRTmnkbzc/edit?usp=sharing"
+            target="_blank"
+          >
+            <span class="icon"><i class="fas fa-table"></i></span>
+            <span>Laporan Bulanan</span>
+          </a>
+        </div>
+
+        <div id="message" style="display: none; margin-top: 20px; padding: 10px; border-radius: 6px; font-weight: bold;"></div>
+      </form>
+
+      <footer>
+        <p>© 2025 BPS Provinsi Sumatera Barat — Sistem Laporan Harian PPPK</p>
+      </footer>
+    </div>
 
     <script>
       const form = document.getElementById("form");
@@ -191,11 +183,7 @@ width=device-width, initial-scale=1" />
       const fileNameDisplay = document.getElementById("fileNameDisplay");
 
       fileInput.addEventListener("change", function () {
-        if (this.files && this.files.length > 0) {
-          fileNameDisplay.textContent = this.files[0].name;
-        } else {
-          fileNameDisplay.textContent = "No file selected";
-        }
+        fileNameDisplay.textContent = this.files.length > 0 ? this.files[0].name : "Belum ada file";
       });
 
       async function uploadFile(file) {
@@ -203,45 +191,34 @@ width=device-width, initial-scale=1" />
           const fr = new FileReader();
           fr.onload = (e) => {
             const data = e.target.result.split(",");
-            const obj = {
-              fileName: file.name,
-              mimeType: data[0].match(/:(\w.+);/)[1],
-              data: data[1],
-            };
-            resolve(obj);
+            resolve({ fileName: file.name, mimeType: data[0].match(/:(\\w.+);/)[1], data: data[1] });
           };
           fr.onerror = reject;
           fr.readAsDataURL(file);
         });
       }
 
-      form.addEventListener("submit", async function (e) {
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
-        messageDiv.textContent = "Submitting...";
+        messageDiv.textContent = "Mengirim data...";
         messageDiv.style.display = "block";
-        messageDiv.style.backgroundColor = "beige";
-        messageDiv.style.color = "black";
+        messageDiv.style.backgroundColor = "#fff3cd";
+        messageDiv.style.color = "#856404";
         submitButton.disabled = true;
         submitButton.classList.add("is-loading");
 
         try {
-          const formData = new FormData(this);
+          const formData = new FormData(form);
           const formDataObj = {};
-
-          for (let [key, value] of formData.entries()) {
-            formDataObj[key] = value;
-          }
+          for (let [key, value] of formData.entries()) formDataObj[key] = value;
 
           if (fileInput.files.length > 0) {
-            const fileObj = await uploadFile(fileInput.files[0]);
-            formDataObj.fileData = fileObj;
+            formDataObj.fileData = await uploadFile(fileInput.files[0]);
           }
 
           const scriptURL = "https://script.google.com/macros/s/AKfycby_Wz09XLAbX1qRQAo6eoaOO4e1py5F8-4KInnFX0M4lPKxsvzybsmoojXLwo4rPzmt/exec";
 
           const response = await fetch(scriptURL, {
-            redirect: "follow",
             method: "POST",
             body: JSON.stringify(formDataObj),
             headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -250,35 +227,28 @@ width=device-width, initial-scale=1" />
           const data = await response.json();
 
           if (data.status === "success") {
-            messageDiv.textContent = data.message || "Data submitted successfully!";
-            messageDiv.style.backgroundColor = "#ff3e00";
+            messageDiv.textContent = "✅ Data berhasil dikirim!";
+            messageDiv.style.backgroundColor = "#28a745";
             messageDiv.style.color = "white";
             form.reset();
-            fileNameDisplay.textContent = "No file selected";
-          } else {
-            throw new Error(data.message || "Submission failed");
-          }
+            fileNameDisplay.textContent = "Belum ada file";
+          } else throw new Error(data.message || "Gagal mengirim data");
         } catch (error) {
-          console.error("Error:", error);
-          messageDiv.textContent = "Error: " + error.message;
-          messageDiv.style.backgroundColor = "#f14668";
+          messageDiv.textContent = "❌ " + error.message;
+          messageDiv.style.backgroundColor = "#dc3545";
           messageDiv.style.color = "white";
         } finally {
           submitButton.disabled = false;
           submitButton.classList.remove("is-loading");
-          setTimeout(() => {
-            messageDiv.textContent = "";
-            messageDiv.style.display = "none";
-          }, 4000);
+          setTimeout(() => (messageDiv.style.display = "none"), 4000);
         }
       });
 
-      const cancelButton = form.querySelector("button.is-danger");
-      cancelButton.addEventListener("click", function () {
+      function resetForm() {
         form.reset();
-        fileNameDisplay.textContent = "No file selected";
+        fileNameDisplay.textContent = "Belum ada file";
         messageDiv.style.display = "none";
-      });
+      }
     </script>
   </body>
 </html>
