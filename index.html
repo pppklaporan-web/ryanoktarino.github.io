@@ -183,7 +183,11 @@
       const fileNameDisplay = document.getElementById("fileNameDisplay");
 
       fileInput.addEventListener("change", function () {
-        fileNameDisplay.textContent = this.files.length > 0 ? this.files[0].name : "Belum ada file";
+        if (this.files && this.files.length > 0) {
+          fileNameDisplay.textContent = this.files[0].name;
+        } else {
+          fileNameDisplay.textContent = "No file selected";
+        }
       });
 
       async function uploadFile(file) {
@@ -191,34 +195,45 @@
           const fr = new FileReader();
           fr.onload = (e) => {
             const data = e.target.result.split(",");
-            resolve({ fileName: file.name, mimeType: data[0].match(/:(\\w.+);/)[1], data: data[1] });
+            const obj = {
+              fileName: file.name,
+              mimeType: data[0].match(/:(\w.+);/)[1],
+              data: data[1],
+            };
+            resolve(obj);
           };
           fr.onerror = reject;
           fr.readAsDataURL(file);
         });
       }
 
-      form.addEventListener("submit", async (e) => {
+      form.addEventListener("submit", async function (e) {
         e.preventDefault();
-        messageDiv.textContent = "Mengirim data...";
+
+        messageDiv.textContent = "Submitting...";
         messageDiv.style.display = "block";
-        messageDiv.style.backgroundColor = "#fff3cd";
-        messageDiv.style.color = "#856404";
+        messageDiv.style.backgroundColor = "beige";
+        messageDiv.style.color = "black";
         submitButton.disabled = true;
         submitButton.classList.add("is-loading");
 
         try {
-          const formData = new FormData(form);
+          const formData = new FormData(this);
           const formDataObj = {};
-          for (let [key, value] of formData.entries()) formDataObj[key] = value;
+
+          for (let [key, value] of formData.entries()) {
+            formDataObj[key] = value;
+          }
 
           if (fileInput.files.length > 0) {
-            formDataObj.fileData = await uploadFile(fileInput.files[0]);
+            const fileObj = await uploadFile(fileInput.files[0]);
+            formDataObj.fileData = fileObj;
           }
 
           const scriptURL = "https://script.google.com/macros/s/AKfycby_Wz09XLAbX1qRQAo6eoaOO4e1py5F8-4KInnFX0M4lPKxsvzybsmoojXLwo4rPzmt/exec";
 
           const response = await fetch(scriptURL, {
+            redirect: "follow",
             method: "POST",
             body: JSON.stringify(formDataObj),
             headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -227,28 +242,35 @@
           const data = await response.json();
 
           if (data.status === "success") {
-            messageDiv.textContent = "✅ Data berhasil dikirim!";
-            messageDiv.style.backgroundColor = "#28a745";
+            messageDiv.textContent = data.message || "Data submitted successfully!";
+            messageDiv.style.backgroundColor = "#ff3e00";
             messageDiv.style.color = "white";
             form.reset();
-            fileNameDisplay.textContent = "Belum ada file";
-          } else throw new Error(data.message || "Gagal mengirim data");
+            fileNameDisplay.textContent = "No file selected";
+          } else {
+            throw new Error(data.message || "Submission failed");
+          }
         } catch (error) {
-          messageDiv.textContent = "❌ " + error.message;
-          messageDiv.style.backgroundColor = "#dc3545";
+          console.error("Error:", error);
+          messageDiv.textContent = "Error: " + error.message;
+          messageDiv.style.backgroundColor = "#f14668";
           messageDiv.style.color = "white";
         } finally {
           submitButton.disabled = false;
           submitButton.classList.remove("is-loading");
-          setTimeout(() => (messageDiv.style.display = "none"), 4000);
+          setTimeout(() => {
+            messageDiv.textContent = "";
+            messageDiv.style.display = "none";
+          }, 4000);
         }
       });
 
-      function resetForm() {
+      const cancelButton = form.querySelector("button.is-danger");
+      cancelButton.addEventListener("click", function () {
         form.reset();
-        fileNameDisplay.textContent = "Belum ada file";
+        fileNameDisplay.textContent = "No file selected";
         messageDiv.style.display = "none";
-      }
+      });
     </script>
   </body>
 </html>
