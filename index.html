@@ -1,52 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
-    <title>LAPORAN HARIAN PPPK</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Laporan Harian PPPK - BPS Sumbar</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="icon" href="https://bps.go.id/favicon.ico" type="image/x-icon" />
     <style>
       body {
-        padding: 0.5rem;
-        font-size: 16px;
+        background: linear-gradient(135deg, #f4f7fa, #e8eef3);
+        font-family: "Poppins", sans-serif;
       }
-      h1.title {
-        font-size: 1.2rem;
+
+      .hero.is-primary {
+        background: linear-gradient(90deg, #0047ab, #1e90ff);
+      }
+
+      .hero .title {
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      form {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      label.label {
+        color: #0047ab;
+        font-weight: 600;
+      }
+
+      .file.has-name .file-name {
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .button.is-primary {
+        background-color: #0047ab;
+      }
+
+      .button.is-link {
+        background-color: #ff8c00;
+        color: white;
+      }
+
+      .button.is-danger {
+        background-color: #d9534f;
+      }
+
+      footer {
         text-align: center;
-        line-height: 1.4;
+        margin-top: 2rem;
+        color: #666;
+        font-size: 0.85rem;
       }
-      form.container {
-        margin: 1rem auto;
-        padding: 1rem;
-        max-width: 95%;
-      }
-      input.input,
-      textarea.textarea {
-        width: 100%;
-      }
-      .file-label {
-        font-size: 0.9rem;
-      }
-      button.button {
-        width: 100%;
-        margin-top: 0.5rem;
-      }
-      @media (min-width: 768px) {
-        button.button {
-          width: auto;
-        }
+
+      #message {
+        transition: all 0.3s ease;
       }
     </style>
   </head>
   <body>
     <section class="hero is-primary is-bold">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Laporan Harian Ryan Oktarino BPS Provinsi Sumatera Barat</h1>
-        </div>
+      <div class="hero-body has-text-centered">
+        <h1 class="title is-3">LAPORAN HARIAN PPPK</h1>
+        <h2 class="subtitle is-5">BPS Provinsi Sumatera Barat</h2>
       </div>
     </section>
+
     <form id="form" class="container m-4 pl-4">
       <div class="field">
         <label class="label">Tanggal</label>
@@ -96,14 +128,14 @@
 	  </div>
 
       <div class="field">
-        <label class="label">Upload Document (Optional)</label>
+        <label class="label">Upload File (Optional)</label>
         <div class="control">
           <div class="file has-name is-fullwidth">
             <label class="file-label">
               <input class="file-input" type="file" name="theFile" id="fileInput" accept="*/*" />
               <span class="file-cta">
                 <span class="file-icon"><i class="fas fa-upload"></i></span>
-                <span class="file-label">Choose a file…</span>
+                <span class="file-label">Pilih File file…</span>
               </span>
               <span class="file-name" id="fileNameDisplay">No file selected</span>
             </label>
@@ -115,7 +147,7 @@
 
       <div class="field is-grouped is-grouped-centered is-flex-direction-column-mobile">
         <div class="control">
-          <button class="button is-primary" type="submit" id="submit-button">Sign Up</button>
+          <button class="button is-primary" type="submit" id="submit-button">Kirim</button>
         </div>
         <div class="control">
           <button class="button is-danger" type="button" onclick="document.getElementById('form').reset(); document.getElementById('fileNameDisplay').textContent = 'No file selected';">Cancel</button>
